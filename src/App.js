@@ -27,36 +27,40 @@ class App extends React.Component{
    const { num, deck } = this.state
     if (deck[num].id < deck.length){
     this.setState({
-      num: num + 1
+      num: num + 1,
+      currentCard: deck[num],
     }) 
-  } else {
+    } else {
     alert('there are no more cards in this direction')
+    } 
   }
- } 
 
  decrCurrent = () => {
-  const { num } = this.state
+  const { num, deck } = this.state
   if (num > 0){ 
     this.setState({
-      num: num - 1
+      num: num - 1,
+      currentCard: deck[num],
     })
-  } else {
+    } else {
     alert('there are no more cards in this direction')
+    } 
   } 
-} 
 
-remove = (id) => {
-  const { deck, } = this.state
- const newDeck = deck.filter( c => c.id !== id) 
- this.setState({
-   deck: newDeck,
- })
-}
+  remove = (id) => {
+    const { deck, } = this.state
+  const newDeck = deck.filter( c => c.id !== id) 
+  this.setState({
+    deck: newDeck,
+  })
+  }
 
-addCard = () => {
-  const { deck } = this.state
-  console.log(deck.length + 1)
-}
+  addCard = (card) => {
+    const {deck} = this.state
+    let newCard = { id: deck.length + 1, ...card};
+    this.setState({ deck: [...this.state.deck, newCard] });
+    console.log(this.state)
+  };
 
   render(){
     const { deck, front, num, } = this.state
